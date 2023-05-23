@@ -34,7 +34,7 @@ class SpringBootRestServicesApplicationTests {
     @Test
     @Order(3)
     public void replaceProduct() throws URISyntaxException, IOException, InterruptedException {
-        ProductDto product = new ProductDto(3L, "Latte", 25);
+        ProductDto product = new ProductDto(3L, "Latte", "Parmalat", 25);
         boolean result = restClient.replaceProduct(product);
         if (result) {
             System.out.println("REPLACE Test - Product with id " + product.getId() + " replaced");
@@ -60,7 +60,7 @@ class SpringBootRestServicesApplicationTests {
     @Test
     @Order(5)
     public void addProduct() throws URISyntaxException, IOException, InterruptedException {
-        ProductDto product = new ProductDto("Gelato", 15);
+        ProductDto product = new ProductDto("Gelato", "Magnum",15);
         Long productId = restClient.addProduct(product);
         System.out.println("ADD Test - Product with id " + productId + " created");
     }

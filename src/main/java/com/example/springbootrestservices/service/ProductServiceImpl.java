@@ -89,11 +89,11 @@ public class ProductServiceImpl implements ProductServiceApi {
     }
 
     private Product mapProductDtoToProduct(ProductDto productDto) {
-        return new Product(productDto.getName(), productDto.getQuantity());
+        return new Product(productDto.getName(), productDto.getBrand(), productDto.getQuantity());
     }
 
     private ProductDto mapProductToProductDto(Product product) {
-        return new ProductDto(product.getId(), product.getName(), product.getQuantity());
+        return new ProductDto(product.getId(), product.getName(), product.getBrand(), product.getQuantity());
     }
 
     private List<Product> getAllProductsFromRepo() {

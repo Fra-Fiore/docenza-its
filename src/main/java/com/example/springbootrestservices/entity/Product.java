@@ -16,19 +16,24 @@ public class Product {
     private String name;
 
     @Column
+    private String brand;
+
+    @Column
     private int quantity;
 
     public Product() {}
 
-    public Product(Long id, String name, int quantity) {
+    public Product(Long id, String name, String brand, int quantity) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+        this.brand = brand;
     }
 
-    public Product(String name, int quantity) {
+    public Product(String name, String brand, int quantity) {
         this.name = name;
         this.quantity = quantity;
+        this.brand = brand;
     }
 
     public Long getId() {
@@ -55,17 +60,25 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return quantity == product.quantity && id.equals(product.id) && name.equals(product.name);
+        return quantity == product.quantity && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(brand, product.brand);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, quantity);
+        return Objects.hash(id, name, quantity, brand);
     }
 
     @Override
@@ -74,6 +87,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
+                ", brand='" + brand + '\'' +
                 '}';
     }
 }

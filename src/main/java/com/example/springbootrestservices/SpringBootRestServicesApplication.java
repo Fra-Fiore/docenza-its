@@ -15,15 +15,15 @@ public class SpringBootRestServicesApplication {
 
 	public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
 		SpringApplication.run(SpringBootRestServicesApplication.class, args);
-		new RestClient().initData(getDefaultData());
+//		new RestClient().initData(getDefaultData());
 	}
 
-	private static List<ProductDto> getDefaultData() {
-		List<ProductDto> productList = new ArrayList<>();
-		productList.add(new ProductDto("Pane", 10));
-		productList.add(new ProductDto("Pasta", 20));
-		productList.add(new ProductDto("Formaggio", 30));
-		return productList;
-	}
+//	private static List<ProductDto> getDefaultData() {
+//		List<ProductDto> productList = new ArrayList<>();
+//		productList.add(new ProductDto("Pane", 10));
+//		productList.add(new ProductDto("Pasta", 20));
+//		productList.add(new ProductDto("Formaggio", 30));
+//		return productList;
+//	}
 
 }
