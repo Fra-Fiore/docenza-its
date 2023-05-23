@@ -88,6 +88,11 @@ public class ProductServiceImpl implements ProductServiceApi {
         return true;
     }
 
+    @Override
+    public void importCsv() {
+        // TODO: implementa questo metodo in modo tale da importare i dati presenti nel file '/resurces/import_data.csv' nella tabella 'products'
+    }
+
     private Product mapProductDtoToProduct(ProductDto productDto) {
         return new Product(productDto.getName(), productDto.getBrand(), productDto.getQuantity());
     }

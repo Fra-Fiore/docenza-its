@@ -19,4 +19,6 @@ public interface ProductServiceApi {
     void addAllProducts(List<ProductDto> productDtoList);
 
     boolean deleteProduct(Long id);
+
+    void importCsv();
 }
