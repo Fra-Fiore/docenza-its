@@ -47,4 +47,9 @@ public class ProductController {
     public boolean deleteProduct(@PathVariable Long id) {
         return productServiceApi.deleteProduct(id);
     }
+
+    @PostMapping("${products.base.uri}/import_csv")
+    public int importCsv() {
+        return productServiceApi.importCsv();
+    }
 }

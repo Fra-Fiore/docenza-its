@@ -20,5 +20,5 @@ public interface ProductServiceApi {
 
     boolean deleteProduct(Long id);
 
-    void importCsv();
+    int importCsv();
 }
