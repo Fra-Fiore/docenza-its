@@ -3,13 +3,26 @@ package com.example.springbootrestservices.service;
 import com.example.springbootrestservices.entity.Product;
 import com.example.springbootrestservices.model.ProductDto;
 import com.example.springbootrestservices.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
-import java.util.*;
 
-import static org.junit.Assert.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+
 @Service
 public class ProductServiceImpl implements ProductServiceApi {
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     @Autowired
     ProductRepository productRepository;
@@ -91,7 +104,43 @@ public class ProductServiceImpl implements ProductServiceApi {
     @Override
     public int importCsv() {
         // TODO: implementa questo metodo in modo tale da importare i dati presenti nel file '/resurces/import_data.csv' nella tabella 'products' e restituisca il numero di elementi inseriti
-        return 0;
+        String csvFile = "classpath:import_data.csv";
+        String csvSplitBy = ",";
+
+        try {
+            Resource resource = resourceLoader.getResource(csvFile);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+
+            // SOLUZIONE 1
+//            AtomicInteger counter = new AtomicInteger();
+//            reader.lines().skip(1)
+//                    .map(line -> line.split(csvSplitBy))
+//                    .forEach(data -> {
+//                        // Creazione di un oggetto Java con i dati del file CSV
+//                        // Assumendo che il file CSV abbia colonne separate da virgola
+//
+//                        String name = data[0];
+//                        String brand = data[1];
+//                        int quantity = Integer.parseInt(data[2]);
+//
+//                        Product product = new Product(name, brand, quantity);
+//                        productRepository.save(product);
+//                        counter.addAndGet(1);
+//                    });
+//            return counter.get();
+
+            // SOLUZIONE 2
+            List<Product> products = reader.lines()
+                    .skip(1) // Salta la riga dell'intestazione se presente
+                    .map(line -> line.split(csvSplitBy))
+                    .map(data -> new Product(data[0], data[1], Integer.parseInt(data[2])))
+                    .toList();
+            return productRepository.saveAll(products).size();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     private Product mapProductDtoToProduct(ProductDto productDto) {
